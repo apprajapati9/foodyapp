@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:background="@color/lightGray"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -17,10 +13,29 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/nav_graph" />
+            app:navGraph="@navigation/nav_graph"
+             />  <!-- app:navGraph="@navigation/nav_graph"  - remove this when you want to use FragmentContainerView instead of <fragment> and call setgraph in main through NavController -->
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:menu="@menu/bottom_nav_menu"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+
+
+<!--
+ Why remove <fragment> and use FragmentContainerView?
+ One of the common patterns to host fragments in an activity is to use a FrameLayout. The Android community have been doing this for years but this is going to change now. The androidx team introduced this new view called FragmentContainerView to do this for you.
+All you have to do is replace your FrameLayout with FragmentContainerView and everything should work out of the box, you won’t need to change anything on the way you handle fragment transactions.
+The benefits gained here is the improved handling of what’s called the z-ordering for fragments. Here’s the example they used, but basically this means , for example, that the exit and enter transitions between two fragments will not overlap each other. Instead this FragmentContainerView is going to start the exit animation first then the enter animation.
+If you are asking can this replace <fragment> tag? then the answer is yes. All you have to do is to add android:name="your_class_name" when defining FragmentContainerView and it will use a FragmentTransaction under the hood to build and show your fragment. This mean you can use fragment transactions later on to replace it.
+ -->

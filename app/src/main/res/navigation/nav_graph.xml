@@ -3,26 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/recipeFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.apprajapati.foody.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/recipeFragment"
+        android:name="com.apprajapati.foody.RecipesFragment"
+        android:label="@string/recipe_fragment_label"
+        tools:layout="@layout/recipe_fragment">
 
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.apprajapati.foody.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/favRecipeFragment"
+        android:name="com.apprajapati.foody.FavoriteRecipesFragment"
+        android:label="@string/fav_recipe_fragment_label"
+        tools:layout="@layout/fav_recipe_fragment">
 
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/foodJokeFragment"
+        android:name="com.apprajapati.foody.FoodJokeFragment"
+        android:label="@string/joke_fragment_label" />
 </navigation>

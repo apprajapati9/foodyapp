@@ -9,10 +9,17 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import androidx.core.app.TaskStackBuilder
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.apprajapati.foody.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
@@ -24,14 +31,15 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        navController = findNavController(R.id.nav_host_fragment_content_main)
+        navController.setGraph(R.navigation.nav_graph)
+       // appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.recipeFragment, R.id.favRecipeFragment, R.id.foodJokeFragment  ))
+
+        val bottomNavView : BottomNavigationView = binding.root.findViewById(R.id.bottomNavigationView)
+        bottomNavView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-//        binding.fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -51,8 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
+        return navController.navigateUp()
                 || super.onSupportNavigateUp()
     }
 }
