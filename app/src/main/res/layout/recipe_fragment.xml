@@ -13,15 +13,57 @@
         android:background="@color/lightGray"
         tools:context=".RecipesFragment">
 
-        <TextView
-            android:id="@+id/textview_first"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recipe fragment"
-            android:textColor="@color/black"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            app:tint="@color/white"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_restaurant" />
+
+        <ImageView
+            android:id="@+id/error_imageview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:alpha="0.5"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/recyclerView"
+            app:layout_constraintVertical_bias="0.36"
+            app:srcCompat="@drawable/ic_sad" />
+
+        <TextView
+            android:id="@+id/error_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            android:alpha="0.5"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:text="No Internet Connection."
+            app:layout_constraintEnd_toEndOf="@+id/error_imageview"
+            app:layout_constraintStart_toStartOf="@+id/error_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/error_imageview" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
