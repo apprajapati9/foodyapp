@@ -1,4 +1,4 @@
-package com.apprajapati.foody
+package com.apprajapati.foody.ui.fragments.foodjoke
 
 import android.os.Bundle
 import android.view.LayoutInflater

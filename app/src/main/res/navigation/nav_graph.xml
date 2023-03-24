@@ -7,20 +7,20 @@
 
     <fragment
         android:id="@+id/recipeFragment"
-        android:name="com.apprajapati.foody.RecipesFragment"
+        android:name="com.apprajapati.foody.ui.fragments.recipes.RecipesFragment"
         android:label="@string/recipe_fragment_label"
         tools:layout="@layout/recipe_fragment">
 
     </fragment>
     <fragment
         android:id="@+id/favRecipeFragment"
-        android:name="com.apprajapati.foody.FavoriteRecipesFragment"
+        android:name="com.apprajapati.foody.ui.fragments.favorites.FavoriteRecipesFragment"
         android:label="@string/fav_recipe_fragment_label"
         tools:layout="@layout/fav_recipe_fragment">
 
     </fragment>
     <fragment
         android:id="@+id/foodJokeFragment"
-        android:name="com.apprajapati.foody.FoodJokeFragment"
+        android:name="com.apprajapati.foody.ui.fragments.foodjoke.FoodJokeFragment"
         android:label="@string/joke_fragment_label" />
 </navigation>
