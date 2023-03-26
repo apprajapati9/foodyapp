@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt' //Must have this plugin to use kapt '' library dependencies in project.
     id 'dagger.hilt.android.plugin'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -30,7 +31,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions { //Tells complier different configurations for Kotlin language
+    kotlinOptions { //Tells compiler different configurations for Kotlin language
         jvmTarget = '1.8'
     }
 
