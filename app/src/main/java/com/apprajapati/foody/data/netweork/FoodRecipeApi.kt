@@ -1,4 +1,4 @@
-package com.apprajapati.foody
+package com.apprajapati.foody.data.netweork
 
 import FoodRecipe
 import retrofit2.Response

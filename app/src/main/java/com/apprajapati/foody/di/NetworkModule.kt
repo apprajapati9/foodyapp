@@ -1,12 +1,10 @@
 package com.apprajapati.foody.di
 
-import com.apprajapati.foody.Constants
-import com.apprajapati.foody.Constants.Companion.BASE_URL
-import com.apprajapati.foody.FoodRecipeApi
+import com.apprajapati.foody.util.Constants.Companion.BASE_URL
+import com.apprajapati.foody.data.netweork.FoodRecipeApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.internal.managers.ApplicationComponentManager
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
