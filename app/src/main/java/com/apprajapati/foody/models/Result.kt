@@ -23,7 +23,7 @@ data class Result(
     @SerializedName("summary")
     val summary: String,
     @SerializedName("title")
-    val title: String,
+    val  title: String,
     @SerializedName("vegan")
     val vegan: Boolean,
     @SerializedName("vegetarian")
