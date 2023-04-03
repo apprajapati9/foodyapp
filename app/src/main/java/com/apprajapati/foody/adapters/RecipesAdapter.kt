@@ -3,9 +3,11 @@ package com.apprajapati.foody.adapters
 import com.apprajapati.foody.models.FoodRecipe
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.apprajapati.foody.databinding.RecipeItemLayoutBinding
 import com.apprajapati.foody.models.Result
+import com.apprajapati.foody.util.RecipesDiffUtil
 
 class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder>() {
 
@@ -33,7 +35,7 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder>() {
         }
 
         companion object {
-            fun from(parent : ViewGroup) : RecipeViewHolder {
+            fun from(parent: ViewGroup): RecipeViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = RecipeItemLayoutBinding.inflate(layoutInflater, parent, false)
                 return RecipeViewHolder(binding)
@@ -42,8 +44,13 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder>() {
 
     }
 
-    fun setData (newData : FoodRecipe) {
+    fun setData(newData: FoodRecipe) {
+        val recipesDiffUtil = RecipesDiffUtil(recipe, newData.results)
+        val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)
         recipe = newData.results
-        notifyDataSetChanged() //this is bad for performance of the app because it updates whole list all over again
+        diffUtilResult.dispatchUpdatesTo(this)
+
+        //notifyDataSetChanged() //this is bad for performance of the app because it updates whole list all over again
+        //DiffUtil solves this problem by only updated new views to improve recyclerview performance
     }
 }
