@@ -1,6 +1,6 @@
 package com.apprajapati.foody
 
-import FoodRecipe
+import com.apprajapati.foody.models.FoodRecipe
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager

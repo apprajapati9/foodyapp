@@ -1,4 +1,4 @@
-
+package com.apprajapati.foody.models
 import com.google.gson.annotations.SerializedName
 
 data class ExtendedIngredient(

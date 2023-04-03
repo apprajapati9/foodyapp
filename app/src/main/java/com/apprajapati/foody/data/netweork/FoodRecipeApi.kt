@@ -1,6 +1,6 @@
 package com.apprajapati.foody.data.netweork
 
-import FoodRecipe
+import com.apprajapati.foody.models.FoodRecipe
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
