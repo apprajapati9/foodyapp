@@ -1,4 +1,4 @@
-package com.apprajapati.foody
+package com.apprajapati.foody.viewmodels
 
 import com.apprajapati.foody.models.FoodRecipe
 import android.app.Application
