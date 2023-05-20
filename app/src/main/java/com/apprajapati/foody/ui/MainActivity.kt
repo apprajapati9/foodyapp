@@ -12,7 +12,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.apprajapati.foody.R
 import com.apprajapati.foody.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
@@ -29,14 +31,17 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.nav_host_fragment_content_main)
         navController.setGraph(R.navigation.nav_graph)
-       // appBarConfiguration = AppBarConfiguration(navController.graph)
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.recipeFragment,
-            R.id.favRecipeFragment,
-            R.id.foodJokeFragment
-        ))
+        // appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.recipeFragment,
+                R.id.favRecipeFragment,
+                R.id.foodJokeFragment
+            )
+        )
 
-        val bottomNavView : BottomNavigationView = binding.root.findViewById(R.id.bottomNavigationView)
+        val bottomNavView: BottomNavigationView =
+            binding.root.findViewById(R.id.bottomNavigationView)
         bottomNavView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
