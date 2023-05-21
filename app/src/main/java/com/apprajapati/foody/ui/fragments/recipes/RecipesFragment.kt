@@ -15,6 +15,7 @@ import com.apprajapati.foody.adapters.RecipesAdapter
 import com.apprajapati.foody.databinding.RecipeFragmentBinding
 import com.apprajapati.foody.util.Constants.Companion.API_KEY
 import com.apprajapati.foody.util.NetworkResult
+import com.apprajapati.foody.util.observeOnce
 import com.apprajapati.foody.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -64,7 +65,7 @@ class RecipesFragment : Fragment() {
 
     private fun readDatabase() {
         lifecycleScope.launch {
-            mainViewModel.readRecipes.observe(viewLifecycleOwner) { database ->
+            mainViewModel.readRecipes.observeOnce(viewLifecycleOwner) { database ->
                 if (database.isNotEmpty()) {
                     Log.d("RecipesFragment", "ReadDatabase Called.")
                     mAdapter.setData(database[0].foodRecipe)
