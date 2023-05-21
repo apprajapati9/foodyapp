@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="mainViewModel"
+            type="com.apprajapati.foody.viewmodels.MainViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,14 +35,16 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:clickable="true"
-            app:tint="@color/white"
             android:focusable="true"
+            android:src="@drawable/ic_restaurant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_restaurant" />
+            app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/error_imageview"
+            readApiResponse="@{mainViewModel.recipesResponse}"
+            readDatabase="@{mainViewModel.readRecipes}"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:alpha="0.5"
@@ -52,15 +58,17 @@
 
         <TextView
             android:id="@+id/error_textview"
+            readApiResponseText="@{mainViewModel.recipesResponse}"
+            readDatabaseText="@{mainViewModel.readRecipes}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textStyle="bold"
-            android:visibility="invisible"
             android:alpha="0.5"
+            android:text="@string/connect_error_message"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:text="No Internet Connection."
+            android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/error_imageview"
             app:layout_constraintStart_toStartOf="@+id/error_imageview"
             app:layout_constraintTop_toBottomOf="@+id/error_imageview" />

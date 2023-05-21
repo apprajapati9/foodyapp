@@ -14,4 +14,5 @@
     <string name="recipes_tab_name">Recipes</string>
     <string name="fav_tab_name">Favorites</string>
     <string name="joke_tab_name">Joke!</string>
+    <string name="connect_error_message">No Internet Connection.</string>
 </resources>

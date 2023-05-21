@@ -49,6 +49,8 @@ class RecipesFragment : Fragment() {
     ): View {
 
         _binding = RecipeFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = mainViewModel
 
         setupRecyclerView()
         readDatabase()
