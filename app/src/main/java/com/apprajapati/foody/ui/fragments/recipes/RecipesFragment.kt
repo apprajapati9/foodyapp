@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.apprajapati.foody.R
 import com.apprajapati.foody.viewmodels.MainViewModel
 import com.apprajapati.foody.adapters.RecipesAdapter
 import com.apprajapati.foody.databinding.RecipeFragmentBinding
@@ -55,6 +57,10 @@ class RecipesFragment : Fragment() {
         setupRecyclerView()
         readDatabase()
         // requestApiData()
+
+        binding.floatingRecipeFilterButton.setOnClickListener {
+            findNavController().navigate(R.id.action_recipeFragment_to_recipeBottomSheet)
+        }
 
         return binding.root
 

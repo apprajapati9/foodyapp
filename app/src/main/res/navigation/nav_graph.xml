@@ -11,6 +11,9 @@
         android:label="@string/recipe_fragment_label"
         tools:layout="@layout/recipe_fragment">
 
+        <action
+            android:id="@+id/action_recipeFragment_to_recipeBottomSheet"
+            app:destination="@id/recipeBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/favRecipeFragment"
@@ -23,4 +26,13 @@
         android:id="@+id/foodJokeFragment"
         android:name="com.apprajapati.foody.ui.fragments.foodjoke.FoodJokeFragment"
         android:label="@string/joke_fragment_label" />
+    <dialog
+        android:id="@+id/recipeBottomSheet"
+        android:name="com.apprajapati.foody.ui.fragments.recipes.bottomsheet.RecipeBottomSheet"
+        android:label="recipe_bottom_sheet"
+        tools:layout="@layout/recipe_bottom_sheet" >
+        <action
+            android:id="@+id/action_recipeBottomSheet_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </dialog>
 </navigation>
