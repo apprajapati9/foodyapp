@@ -2,6 +2,7 @@ package com.apprajapati.foody.viewmodels
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.apprajapati.foody.data.DataStoreRepository
@@ -28,6 +29,8 @@ class RecipesViewModel @Inject constructor(
 
     private var mealType = DEFAULT_MEAL_TYPE
     private var dietType = DEFAULT_DIET_TYPE
+
+    var networkStatus = false
 
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
 
@@ -59,5 +62,11 @@ class RecipesViewModel @Inject constructor(
         }
         Log.d("Queries", q.toString() );
         return queries
+    }
+
+    fun showNetworkStatus(){
+        if(!networkStatus){
+            Toast.makeText(getApplication(), "No Internet Connection.", Toast.LENGTH_SHORT).show()
+        }
     }
 }

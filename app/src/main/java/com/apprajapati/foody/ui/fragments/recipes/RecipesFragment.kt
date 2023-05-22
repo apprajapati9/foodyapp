@@ -17,6 +17,7 @@ import com.apprajapati.foody.viewmodels.MainViewModel
 import com.apprajapati.foody.adapters.RecipesAdapter
 import com.apprajapati.foody.databinding.RecipeFragmentBinding
 import com.apprajapati.foody.util.Constants.Companion.API_KEY
+import com.apprajapati.foody.util.NetworkListener
 import com.apprajapati.foody.util.NetworkResult
 import com.apprajapati.foody.util.observeOnce
 import com.apprajapati.foody.viewmodels.RecipesViewModel
@@ -40,6 +41,7 @@ class RecipesFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var networkListener: NetworkListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,10 +61,25 @@ class RecipesFragment : Fragment() {
 
         setupRecyclerView()
         readDatabase()
+
+        lifecycleScope.launch {
+            networkListener = NetworkListener()
+            networkListener.checkNetworkAvailability(requireContext()).collect { status ->
+                Log.d("NetworkListener", status.toString())
+                recipesViewModel.networkStatus = status
+                recipesViewModel.showNetworkStatus()
+            }
+        }
+
         // requestApiData()
 
         binding.floatingRecipeFilterButton.setOnClickListener {
-            findNavController().navigate(R.id.action_recipeFragment_to_recipeBottomSheet)
+            if (recipesViewModel.networkStatus) {
+                findNavController().navigate(R.id.action_recipeFragment_to_recipeBottomSheet)
+            } else {
+                recipesViewModel.showNetworkStatus()
+            }
+
         }
 
         return binding.root
