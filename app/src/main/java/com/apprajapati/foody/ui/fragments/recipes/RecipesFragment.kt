@@ -111,7 +111,7 @@ class RecipesFragment : Fragment() {
                         requireContext(),
                         response.message.toString(),
                         Toast.LENGTH_SHORT
-                    )
+                    ).show()
                 }
 
                 is NetworkResult.Loading -> {
