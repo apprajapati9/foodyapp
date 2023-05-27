@@ -16,12 +16,14 @@ import com.apprajapati.foody.util.Constants.Companion.QUERY_DIET
 import com.apprajapati.foody.util.Constants.Companion.QUERY_FILL_INGREDIENTS
 import com.apprajapati.foody.util.Constants.Companion.QUERY_KEY
 import com.apprajapati.foody.util.Constants.Companion.QUERY_NUMBER
+import com.apprajapati.foody.util.Constants.Companion.QUERY_SEARCH
 import com.apprajapati.foody.util.Constants.Companion.QUERY_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @HiltViewModel
 class RecipesViewModel @Inject constructor(
     application: Application,
@@ -40,10 +42,10 @@ class RecipesViewModel @Inject constructor(
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
 
-    fun saveBackOnline(backOnline: Boolean)  =
+    fun saveBackOnline(backOnline: Boolean) =
         viewModelScope.launch(Dispatchers.IO) { dataStoreRepository.saveBackOnline(backOnline) }
 
-    fun saveMealAndDietType(meal : String, mealId : Int, diet : String, dietId: Int)  =
+    fun saveMealAndDietType(meal: String, mealId: Int, diet: String, dietId: Int) =
         viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.saveMealAndDietType(meal, mealId, diet, dietId)
         }
@@ -52,10 +54,9 @@ class RecipesViewModel @Inject constructor(
         val queries: HashMap<String, String> = HashMap()
 
         viewModelScope.launch {
-            readMealAndDietType.collect {
-                value ->
-                    mealType = value.selectedMealType
-                    dietType = value.selectedDietType
+            readMealAndDietType.collect { value ->
+                mealType = value.selectedMealType
+                dietType = value.selectedDietType
             }
         }
 
@@ -66,19 +67,35 @@ class RecipesViewModel @Inject constructor(
         queries[QUERY_ADD_RECIPE_INFORMATION] = "true"
         queries[QUERY_FILL_INGREDIENTS] = "true"
 
-        val q = queries.map{
+        val q = queries.map {
             "${it.key}: ${it.value}"
         }
-        Log.d("Queries", q.toString() );
+        Log.d("Queries", q.toString());
         return queries
     }
 
-    fun showNetworkStatus(){
-        if(!networkStatus){
+    fun applySearchQuery(searchQuery: String): HashMap<String, String> {
+        val queries: HashMap<String, String> = HashMap()
+        queries[QUERY_SEARCH] = searchQuery
+        queries[QUERY_NUMBER] = DEFAULT_RECIPE_NUMBER
+        queries[QUERY_KEY] = API_KEY
+        queries[QUERY_ADD_RECIPE_INFORMATION] = "true"
+        queries[QUERY_FILL_INGREDIENTS] = "true"
+
+        val q = queries.map {
+            "${it.key}: ${it.value}"
+        }
+        Log.d("Queries", q.toString());
+
+        return queries
+    }
+
+    fun showNetworkStatus() {
+        if (!networkStatus) {
             Toast.makeText(getApplication(), "No Internet Connection.", Toast.LENGTH_SHORT).show()
             saveBackOnline(true)
-        }else if(networkStatus){
-            if(backOnline){
+        } else if (networkStatus) {
+            if (backOnline) {
                 Toast.makeText(getApplication(), "We're back online.", Toast.LENGTH_SHORT).show()
                 saveBackOnline(false)
             }

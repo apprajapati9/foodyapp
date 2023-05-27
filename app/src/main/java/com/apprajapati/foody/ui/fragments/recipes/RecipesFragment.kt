@@ -8,8 +8,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,7 +19,6 @@ import com.apprajapati.foody.R
 import com.apprajapati.foody.viewmodels.MainViewModel
 import com.apprajapati.foody.adapters.RecipesAdapter
 import com.apprajapati.foody.databinding.RecipeFragmentBinding
-import com.apprajapati.foody.util.Constants.Companion.API_KEY
 import com.apprajapati.foody.util.NetworkListener
 import com.apprajapati.foody.util.NetworkResult
 import com.apprajapati.foody.util.observeOnce
@@ -67,7 +66,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
         //readDatabase()
 
         recipesViewModel.readBackOnline.observe(viewLifecycleOwner) {
-            recipesViewModel.backOnline= it
+            recipesViewModel.backOnline = it
         }
 
         lifecycleScope.launch {
@@ -157,6 +156,31 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
+    private fun searchApiData(searchQuery: String) {
+        mainViewModel.searchRecipes(recipesViewModel.applySearchQuery(searchQuery))
+        mainViewModel.searchRecipesResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    val foodRecipe = response.data
+                    foodRecipe?.let { mAdapter.setData(it) }
+                }
+
+                is NetworkResult.Error -> {
+                    loadDataFromCache()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                is NetworkResult.Loading -> {
+
+                }
+            }
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.recipes_menu, menu)
 
@@ -169,11 +193,14 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
 
 
     override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            searchApiData(query)
+        }
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        return true
+        return false
     }
 
     override fun onDestroyView() {
