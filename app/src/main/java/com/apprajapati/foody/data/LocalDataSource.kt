@@ -1,7 +1,8 @@
 package com.apprajapati.foody.data
 
 import com.apprajapati.foody.data.database.RecipesDAO
-import com.apprajapati.foody.data.database.RecipesEntity
+import com.apprajapati.foody.data.database.entities.FavoritesEntity
+import com.apprajapati.foody.data.database.entities.RecipesEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -12,7 +13,24 @@ class LocalDataSource @Inject constructor(private val recipesDAO: RecipesDAO) {
         recipesDAO.insertRecipes(recipesEntity)
     }
 
-    fun readDatabase(): Flow<List<RecipesEntity>> {
+    fun readRecipes(): Flow<List<RecipesEntity>> {
         return recipesDAO.readRecipes()
     }
+
+    fun readFavoriteRecipes(): Flow<List<FavoritesEntity>> {
+        return recipesDAO.readFavoritesRecipes()
+    }
+
+    fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity) {
+        recipesDAO.insertFavoriteRecipe(favoritesEntity)
+    }
+
+    fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity) {
+        recipesDAO.deleteFavoriteRecipe(favoritesEntity)
+    }
+
+    fun deleteAllFavoriteRecipes(){
+        recipesDAO.deleteAllFavoriteRecipes()
+    }
+
 }

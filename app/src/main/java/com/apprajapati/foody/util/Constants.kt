@@ -22,6 +22,7 @@ class Constants {
         //ROOM database
         const val DATABASE_NAME = "recipes_database"
         const val RECIPES_TABLE = "recipes_table"
+        const val FAVORITE_RECIPES_TABLE = "favorite_recipes_table"
 
         //bottomSheet preferences
         const val PREFERENCES_NAME = "foody_preferences"
