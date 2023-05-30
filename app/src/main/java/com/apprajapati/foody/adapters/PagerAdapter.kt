@@ -1,6 +1,5 @@
 package com.apprajapati.foody.adapters
 
-import android.icu.text.CaseMap.Title
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
