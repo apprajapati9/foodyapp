@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import coil.load
 import com.apprajapati.foody.R
 import com.apprajapati.foody.databinding.FragmentOverviewBinding
 import com.apprajapati.foody.models.Result
+import com.apprajapati.foody.util.Constants.Companion.RECIPE_BUNDLE_KEY
 import org.jsoup.Jsoup
 
 class OverviewFragment : Fragment() {
@@ -41,7 +41,7 @@ class OverviewFragment : Fragment() {
     private fun populateData() {
         val args = arguments
         val myBundle: Result? =
-            args?.getParcelable("recipeBundle") //Todo: Deprecated. Replace/Remove
+            args?.getParcelable(RECIPE_BUNDLE_KEY) //Todo: Deprecated. Replace/Remove
 
         binding.imageViewRecipe.load(myBundle?.image)
         binding.textViewTitle.text = myBundle?.title
