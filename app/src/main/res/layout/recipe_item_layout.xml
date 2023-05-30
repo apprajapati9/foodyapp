@@ -69,12 +69,12 @@
 
                 <TextView
                     android:id="@+id/textView_recipe_description"
+                    parseHtml="@{result.summary}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="@{result.summary}"
                     android:textColor="@color/darkGray"
                     app:layout_constraintEnd_toEndOf="@+id/textView_recipe_title"
                     app:layout_constraintStart_toStartOf="@+id/textView_recipe_title"

@@ -16,8 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:layout_constraintStart_toStartOf="@+id/ImageViewVegetarian"
-            app:layout_constraintTop_toBottomOf="@+id/ImageViewVegetarian"
+            app:layout_constraintStart_toStartOf="@+id/imageViewVegetarian"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewVegetarian"
             app:srcCompat="@drawable/ic_check_mark" />
 
         <TextView
@@ -115,7 +115,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageViewRecipe" />
 
         <ImageView
-            android:id="@+id/ImageViewVegetarian"
+            android:id="@+id/imageViewVegetarian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -130,9 +130,9 @@
             android:layout_marginStart="8dp"
             android:text="Vegetarian"
             android:textColor="@color/darkGray"
-            app:layout_constraintBottom_toBottomOf="@+id/ImageViewVegetarian"
-            app:layout_constraintStart_toEndOf="@+id/ImageViewVegetarian"
-            app:layout_constraintTop_toTopOf="@+id/ImageViewVegetarian" />
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewVegetarian"
+            app:layout_constraintStart_toEndOf="@+id/imageViewVegetarian"
+            app:layout_constraintTop_toTopOf="@+id/imageViewVegetarian" />
 
         <ImageView
             android:id="@+id/imageViewDairyFree"
@@ -237,7 +237,7 @@
                     android:id="@+id/textViewSummary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="}"
                     android:textColor="@color/darkGray"
                     android:textSize="16sp" />
             </LinearLayout>
