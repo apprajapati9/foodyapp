@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.apprajapati.foody.R
 import com.apprajapati.foody.databinding.IngredientsItemLayoutBinding
 import com.apprajapati.foody.models.ExtendedIngredient
 import com.apprajapati.foody.util.Constants.Companion.BASE_IMAGE_URL
@@ -29,7 +30,10 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.MyViewHolder>
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val ingredient = ingredientList[position]
-        holder.binding.imageViewIngredient.load(BASE_IMAGE_URL + ingredient.image)
+        holder.binding.imageViewIngredient.load(BASE_IMAGE_URL + ingredient.image) {
+            crossfade(600)
+            error(R.drawable.ic_error_placeholder)
+        }
         holder.binding.textViewIngredientName.text = ingredient.name.capitalize()
         holder.binding.textViewIngredientAmount.text = ingredient.amount.toString()
         holder.binding.textViewIngredientUnit.text = ingredient.unit
