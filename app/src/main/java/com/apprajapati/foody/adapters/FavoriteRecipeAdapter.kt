@@ -195,6 +195,11 @@ class FavoriteRecipeAdapter(
         requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
     }
 
+    fun clearContextualActionMode(){
+        if(this::mActionMode.isInitialized){
+            mActionMode.finish()
+        }
+    }
 
     fun setData(newFavRecipes: List<FavoritesEntity>) {
         val favRecipesDiffUtil = RecipesDiffUtil(favoriteRecipes, newFavRecipes)
