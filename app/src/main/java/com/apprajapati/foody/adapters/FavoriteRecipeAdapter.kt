@@ -29,6 +29,8 @@ class FavoriteRecipeAdapter(private val requireActivity: FragmentActivity) :
 
     private var favoriteRecipes = emptyList<FavoritesEntity>()
 
+    private lateinit var mActionMode : ActionMode
+
     class FavRecipeViewHolder(private val binding: FavoriteRecipeItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -101,17 +103,35 @@ class FavoriteRecipeAdapter(private val requireActivity: FragmentActivity) :
 
     override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
         mode?.menuInflater?.inflate(R.menu.favorite_contextual_menu, menu)
+        mActionMode = mode!!
         applyStatusBarColor(R.color.contextualStatusBarColor)
         return true
+    }
+
+    private fun applyActionModeTitle(){
+        when(selectedFoodRecipes.size) {
+            0 -> {
+               mActionMode.finish()
+            }
+            1 -> {
+                mActionMode.title = "${selectedFoodRecipes.size} item selected"
+            }
+            else -> {
+                mActionMode.title = "${selectedFoodRecipes.size} items selected"
+
+            }
+        }
     }
 
     private fun applySelection(holder: FavRecipeViewHolder, currentRecipe: FavoritesEntity) {
         if (selectedFoodRecipes.contains(currentRecipe)) {
             selectedFoodRecipes.remove(currentRecipe)
             changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+            applyActionModeTitle()
         } else {
             selectedFoodRecipes.add(currentRecipe)
             changeRecipeStyle(holder, R.color.cardBackgroundLightColor, R.color.colorPrimary)
+            applyActionModeTitle()
         }
     }
 
