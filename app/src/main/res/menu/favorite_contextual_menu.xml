@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/delete_fav_recipe"
-        android:title="Delete recipe"
+    <item
+        android:id="@+id/delete_fav_recipe"
         android:icon="@drawable/ic_delete"
         android:iconTint="@color/white"
-        app:showAsAction="ifRoom"
-         />
+        android:title="Delete recipe"
+        app:showAsAction="ifRoom" />
 </menu>
