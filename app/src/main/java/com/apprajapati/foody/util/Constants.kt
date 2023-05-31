@@ -6,6 +6,7 @@ class Constants {
         const val API_KEY = "c684670c93354f94a39f1fc81cffdbc0"
         const val BASE_URL = "https://api.spoonacular.com"
         const val BASE_IMAGE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
+        const val FOOD_JOKE_ENDPOINT = BASE_URL + "/food/jokes/random"
 
         //recipe details safe arg bundle name
         const val RECIPE_BUNDLE_KEY = "recipeBundle"
@@ -23,6 +24,7 @@ class Constants {
         const val DATABASE_NAME = "recipes_database"
         const val RECIPES_TABLE = "recipes_table"
         const val FAVORITE_RECIPES_TABLE = "favorite_recipes_table"
+        const val FOOD_JOKE_TABLE = "food_joke_table"
 
         //bottomSheet preferences
         const val PREFERENCES_NAME = "foody_preferences"

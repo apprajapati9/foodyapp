@@ -6,7 +6,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.apprajapati.foody.data.database.entities.FavoritesEntity
+import com.apprajapati.foody.data.database.entities.FoodJokeEntity
 import com.apprajapati.foody.data.database.entities.RecipesEntity
+import com.apprajapati.foody.models.FoodJoke
 import kotlinx.coroutines.flow.Flow
 
 //Data Access Object - DAO
@@ -30,4 +32,10 @@ interface RecipesDAO {
 
     @Query("DELETE FROM FAVORITE_RECIPES_TABLE")
     fun deleteAllFavoriteRecipes()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertFoodJoke(foodJokeEntity: FoodJokeEntity)
+
+    @Query("SELECT * FROM FOOD_JOKE_TABLE ORDER BY id ASC")
+    fun readFoodJoke() : Flow<List<FoodJokeEntity>>
 }
