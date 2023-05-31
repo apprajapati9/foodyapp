@@ -35,24 +35,6 @@ class RecipesRowBinding {
 
         }
 
-        @BindingAdapter("onFavoriteRecipeClickListener")
-        @JvmStatic
-        fun onFavoriteRecipeClickListener(favRecipeRowLayout: ConstraintLayout, result: Result) {
-            favRecipeRowLayout.setOnClickListener {
-                try {
-                    val action =
-                        FavoriteRecipesFragmentDirections.actionFavRecipeFragmentToDetailsActivity(
-                            result
-                        )
-
-                    favRecipeRowLayout.findNavController().navigate(action)
-                } catch (e: Exception) {
-                    Log.d("onFavoriteRecipeClickListener", e.message.toString())
-                }
-            }
-
-        }
-
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
         fun loadImageFromUrl(imageView: ImageView, imageUrl: String) {

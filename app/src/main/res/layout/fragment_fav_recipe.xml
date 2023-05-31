@@ -5,16 +5,26 @@
 
     <data>
 
+        <variable
+            name="mainViewModel"
+            type="com.apprajapati.foody.viewmodels.MainViewModel" />
+
+        <variable
+            name="mAdapter"
+            type="com.apprajapati.foody.adapters.FavoriteRecipeAdapter" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/lightGray"
         android:layout_height="match_parent"
+        android:background="@color/lightGray"
         tools:context=".ui.fragments.favorites.FavoriteRecipesFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favRecipeRecyclerView"
+            setData="@{mAdapter}"
+            viewVisibility="@{mainViewModel.readFavoriteRecipes}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
@@ -28,6 +38,7 @@
 
         <ImageView
             android:id="@+id/imageViewNoData"
+            viewVisibility="@{mainViewModel.readFavoriteRecipes}"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:alpha="0.5"
@@ -40,6 +51,7 @@
 
         <TextView
             android:id="@+id/textViewNoFavoriteMessage"
+            viewVisibility="@{mainViewModel.readFavoriteRecipes}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -47,6 +59,7 @@
             android:text="No Favorite Recipes"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/darkGray"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/imageViewNoData"
             app:layout_constraintStart_toStartOf="@+id/imageViewNoData"
