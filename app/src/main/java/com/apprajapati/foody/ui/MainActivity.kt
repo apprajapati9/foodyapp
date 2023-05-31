@@ -27,8 +27,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
-
         navController = findNavController(R.id.nav_host_fragment_content_main)
         navController.setGraph(R.navigation.nav_graph)
         // appBarConfiguration = AppBarConfiguration(navController.graph)

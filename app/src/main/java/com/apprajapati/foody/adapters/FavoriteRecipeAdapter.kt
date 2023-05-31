@@ -1,27 +1,44 @@
 package com.apprajapati.foody.adapters
 
+import android.view.ActionMode
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.apprajapati.foody.R
 import com.apprajapati.foody.data.database.entities.FavoritesEntity
 import com.apprajapati.foody.databinding.FavoriteRecipeItemLayoutBinding
+import com.apprajapati.foody.ui.fragments.favorites.FavoriteRecipesFragmentDirections
 import com.apprajapati.foody.util.RecipesDiffUtil
+import com.google.android.material.card.MaterialCardView
 
-class FavoriteRecipeAdapter : RecyclerView.Adapter<FavoriteRecipeAdapter.FavRecipeViewHolder>() {
+class FavoriteRecipeAdapter(private val requireActivity: FragmentActivity) :
+    RecyclerView.Adapter<FavoriteRecipeAdapter.FavRecipeViewHolder>(),
+    ActionMode.Callback {
+
+    private var multiSelection = false
+    private var selectedFoodRecipes = arrayListOf<FavoritesEntity>()
+    private var myViewHolders = arrayListOf<FavRecipeViewHolder>()
 
     private var favoriteRecipes = emptyList<FavoritesEntity>()
 
     class FavRecipeViewHolder(private val binding: FavoriteRecipeItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-            fun bind(favoritesEntity: FavoritesEntity) {
-                binding.favoritesEntity = favoritesEntity
-                binding.executePendingBindings()
-            }
+        fun bind(favoritesEntity: FavoritesEntity) {
+            binding.favoritesEntity = favoritesEntity
+            binding.executePendingBindings()
+        }
 
         companion object {
-            fun from(parent : ViewGroup) : FavRecipeViewHolder {
+            fun from(parent: ViewGroup): FavRecipeViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = FavoriteRecipeItemLayoutBinding.inflate(layoutInflater, parent, false)
                 return FavRecipeViewHolder(binding)
@@ -39,11 +56,103 @@ class FavoriteRecipeAdapter : RecyclerView.Adapter<FavoriteRecipeAdapter.FavReci
     }
 
     override fun onBindViewHolder(holder: FavRecipeViewHolder, position: Int) {
+        myViewHolders.add(holder)
+
         val currentFavRecipe = favoriteRecipes[position]
         holder.bind(currentFavRecipe)
+
+        /*
+        * This is another way to handle onClick method, BindingAdapter method - \
+        * onFavoriteRecipeClickListener in FavoritesRecipeBinding does the same thing.
+        *
+        * Single Click Listener
+        *  */
+        holder.itemView.findViewById<ConstraintLayout>(R.id.favorite_recipe_raw_layout)
+            .setOnClickListener {
+
+                if (multiSelection) {
+                    applySelection(holder, currentFavRecipe)
+                } else {
+                    val action =
+                        FavoriteRecipesFragmentDirections.actionFavRecipeFragmentToDetailsActivity(
+                            currentFavRecipe.result
+                        )
+                    holder.itemView.findNavController().navigate(action)
+                }
+            }
+        /*
+        * Long click listener
+        * */
+        holder.itemView.findViewById<ConstraintLayout>(R.id.favorite_recipe_raw_layout)
+            .setOnLongClickListener {
+                if (!multiSelection) {
+                    multiSelection = true
+                    requireActivity.startActionMode(this)
+                    applySelection(holder, currentFavRecipe)
+                    true
+                } else {
+                    multiSelection = false
+                    false
+                }
+
+            }
     }
 
-    fun setData(newFavRecipes : List<FavoritesEntity>) {
+
+    override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+        mode?.menuInflater?.inflate(R.menu.favorite_contextual_menu, menu)
+        applyStatusBarColor(R.color.contextualStatusBarColor)
+        return true
+    }
+
+    private fun applySelection(holder: FavRecipeViewHolder, currentRecipe: FavoritesEntity) {
+        if (selectedFoodRecipes.contains(currentRecipe)) {
+            selectedFoodRecipes.remove(currentRecipe)
+            changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+        } else {
+            selectedFoodRecipes.add(currentRecipe)
+            changeRecipeStyle(holder, R.color.cardBackgroundLightColor, R.color.colorPrimary)
+        }
+    }
+
+    private fun changeRecipeStyle(
+        holder: FavRecipeViewHolder,
+        backgroundColor: Int,
+        strokeColor: Int
+    ) {
+        val constraintView =
+            holder.itemView.findViewById<ConstraintLayout>(R.id.favorite_recipe_raw_layout)
+
+        constraintView.setBackgroundColor(ContextCompat.getColor(requireActivity, backgroundColor))
+
+        val cardView = holder.itemView.findViewById<MaterialCardView>(R.id.favorite_item_cardView)
+        cardView.strokeColor = ContextCompat.getColor(requireActivity, strokeColor)
+    }
+
+    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+        return true
+    }
+
+    override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+        return true
+    }
+
+    override fun onDestroyActionMode(mode: ActionMode?) {
+        multiSelection = false
+        selectedFoodRecipes.clear()
+        applyStatusBarColor(R.color.statusBarColor)
+
+        myViewHolders.forEach { holder ->
+            changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+        }
+    }
+
+    private fun applyStatusBarColor(color: Int) {
+        requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
+    }
+
+
+    fun setData(newFavRecipes: List<FavoritesEntity>) {
         val favRecipesDiffUtil = RecipesDiffUtil(favoriteRecipes, newFavRecipes)
         val diffUtilResult = DiffUtil.calculateDiff(favRecipesDiffUtil)
         favoriteRecipes = newFavRecipes

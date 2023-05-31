@@ -10,14 +10,14 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/recipe_raw_layout"
+        android:id="@+id/favorite_recipe_raw_layout"
         onFavoriteRecipeClickListener="@{favoritesEntity.result}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/raw_cardView"
+            android:id="@+id/favorite_item_cardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
