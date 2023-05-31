@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="favoritesEntity"
+            type="com.apprajapati.foody.data.database.entities.FavoritesEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recipe_raw_layout"
+        onFavoriteRecipeClickListener="@{favoritesEntity.result}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/raw_cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:strokeColor="@color/lightMediumGray"
+            app:strokeWidth="1dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/imageview_fav_recipe_image"
+                    loadImageFromUrl="@{favoritesEntity.result.image}"
+                    android:layout_width="200dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_recipes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <!-- Todo : scaleType tutorial/reading and understanding of imagecrops -->
+
+                <TextView
+                    android:id="@+id/textview_fav_recipe_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/courgette"
+                    android:maxLines="2"
+                    android:text="@{favoritesEntity.result.title}"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageview_fav_recipe_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textview_fav_recipe_description"
+                    parseHtml="@{favoritesEntity.result.summary}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/darkGray"
+                    app:layout_constraintEnd_toEndOf="@+id/textview_fav_recipe_title"
+                    app:layout_constraintStart_toStartOf="@+id/textview_fav_recipe_title"
+                    app:layout_constraintTop_toBottomOf="@+id/textview_fav_recipe_title" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="36dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textview_fav_likes"
+                    app:layout_constraintStart_toStartOf="@+id/textview_fav_likes"
+                    app:layout_constraintTop_toBottomOf="@+id/textview_fav_recipe_description"
+                    app:srcCompat="@drawable/ic_favorite"
+                    app:tint="@color/red" />
+
+                <!-- todo: what is app:tint and android:tint -->
+
+                <TextView
+                    android:id="@+id/textview_fav_likes"
+                    setNumberOfLikes="@{favoritesEntity.result.aggregateLikes}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/red"
+                    app:layout_constraintStart_toStartOf="@+id/textview_fav_recipe_description"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+                <ImageView
+                    android:id="@+id/imageView_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/textview_fav_time"
+                    app:layout_constraintStart_toStartOf="@+id/textview_fav_time"
+                    app:layout_constraintTop_toTopOf="@+id/imageView"
+                    app:srcCompat="@drawable/ic_time"
+                    app:tint="@color/yellow" />
+
+                <TextView
+                    android:id="@+id/textview_fav_time"
+                    setNumberOfMinutes="@{favoritesEntity.result.readyInMinutes}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="0"
+                    android:textColor="@color/yellow"
+                    app:layout_constraintStart_toEndOf="@+id/textview_fav_likes"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView_time" />
+
+                <TextView
+                    android:id="@+id/textview_vegan_text"
+                    setVeganColor="@{favoritesEntity.result.vegan}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="Vegan"
+                    app:layout_constraintStart_toEndOf="@+id/textview_fav_time"
+                    app:layout_constraintTop_toBottomOf="@+id/imageview_vegan_indicator" />
+
+                <ImageView
+                    android:id="@+id/imageview_vegan_indicator"
+                    setVeganColor="@{favoritesEntity.result.vegan}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/textview_vegan_text"
+                    app:layout_constraintStart_toStartOf="@+id/textview_vegan_text"
+                    app:layout_constraintTop_toTopOf="@+id/imageView_time"
+                    app:srcCompat="@drawable/ic_leaf" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

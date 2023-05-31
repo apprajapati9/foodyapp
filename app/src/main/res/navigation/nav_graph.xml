@@ -16,8 +16,8 @@
             app:destination="@id/recipeBottomSheet" />
         <argument
             android:name="backFromBottomSheet"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_recipeFragment_to_detailsActivity"
             app:destination="@id/detailsActivity" />
@@ -26,7 +26,11 @@
         android:id="@+id/favRecipeFragment"
         android:name="com.apprajapati.foody.ui.fragments.favorites.FavoriteRecipesFragment"
         android:label="@string/fav_recipe_fragment_label"
-        tools:layout="@layout/fav_recipe_fragment">
+        tools:layout="@layout/fragment_fav_recipe">
+
+        <action
+            android:id="@+id/action_favRecipeFragment_to_detailsActivity"
+            app:destination="@id/detailsActivity" />
 
     </fragment>
     <fragment
@@ -37,7 +41,7 @@
         android:id="@+id/recipeBottomSheet"
         android:name="com.apprajapati.foody.ui.fragments.recipes.bottomsheet.RecipeBottomSheet"
         android:label="recipe_bottom_sheet"
-        tools:layout="@layout/recipe_bottom_sheet" >
+        tools:layout="@layout/recipe_bottom_sheet">
         <action
             android:id="@+id/action_recipeBottomSheet_to_recipeFragment"
             app:destination="@id/recipeFragment" />
@@ -46,8 +50,9 @@
         android:id="@+id/detailsActivity"
         android:name="com.apprajapati.foody.ui.DetailsActivity"
         android:label="Details"
-        tools:layout="@layout/activity_details" >
-        <argument android:name="recipeResult"
+        tools:layout="@layout/activity_details">
+        <argument
+            android:name="recipeResult"
             app:argType="com.apprajapati.foody.models.Result" />
     </activity>
 </navigation>

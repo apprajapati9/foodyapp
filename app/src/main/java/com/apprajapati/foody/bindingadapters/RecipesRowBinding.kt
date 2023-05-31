@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import coil.load
 import com.apprajapati.foody.R
 import com.apprajapati.foody.models.Result
+import com.apprajapati.foody.ui.fragments.favorites.FavoriteRecipesFragmentDirections
 import com.apprajapati.foody.ui.fragments.recipes.RecipesFragmentDirections
 import org.jsoup.Jsoup
 import java.lang.Exception
@@ -29,6 +30,24 @@ class RecipesRowBinding {
                     recipeRowLayout.findNavController().navigate(action)
                 } catch (e: Exception) {
                     Log.d("onRecipeClickListener", e.message.toString())
+                }
+            }
+
+        }
+
+        @BindingAdapter("onFavoriteRecipeClickListener")
+        @JvmStatic
+        fun onFavoriteRecipeClickListener(favRecipeRowLayout: ConstraintLayout, result: Result) {
+            favRecipeRowLayout.setOnClickListener {
+                try {
+                    val action =
+                        FavoriteRecipesFragmentDirections.actionFavRecipeFragmentToDetailsActivity(
+                            result
+                        )
+
+                    favRecipeRowLayout.findNavController().navigate(action)
+                } catch (e: Exception) {
+                    Log.d("onFavoriteRecipeClickListener", e.message.toString())
                 }
             }
 

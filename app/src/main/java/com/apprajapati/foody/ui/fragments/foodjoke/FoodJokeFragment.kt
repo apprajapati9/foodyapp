@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.apprajapati.foody.databinding.FoodJokeFragmentBinding
+import com.apprajapati.foody.databinding.FragmentFoodJokeBinding
 
 class FoodJokeFragment : Fragment() {
 
-    private var _binding: FoodJokeFragmentBinding? = null
+    private var _binding: FragmentFoodJokeBinding? = null
 
     private val binding get() = _binding!!
 
@@ -19,7 +19,7 @@ class FoodJokeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FoodJokeFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentFoodJokeBinding.inflate(inflater, container, false)
         return binding.root
     }
 }
