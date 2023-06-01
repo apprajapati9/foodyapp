@@ -2,6 +2,7 @@ package com.apprajapati.foody.ui.fragments.foodjoke
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -45,6 +46,7 @@ class FoodJokeFragment : Fragment() {
         binding.mainViewModel = mainModel
         setHasOptionsMenu(true)
 
+        binding.textviewFoodJoke.movementMethod = ScrollingMovementMethod()
         getFoodJoke()
 
         return binding.root

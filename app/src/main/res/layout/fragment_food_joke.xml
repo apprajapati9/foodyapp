@@ -15,9 +15,9 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view_food_joke"
             readApiResponseFoodJoke="@{mainViewModel.foodJokeResponse}"
             readDatabaseFoodJoke="@{mainViewModel.readFoodJoke}"
-            android:id="@+id/card_view_food_joke"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -45,6 +45,8 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/courgette"
+                    android:padding="5dp"
+                    android:scrollbars="vertical"
                     android:text="TextView"
                     android:textColor="@color/dark"
                     android:textSize="20sp"
