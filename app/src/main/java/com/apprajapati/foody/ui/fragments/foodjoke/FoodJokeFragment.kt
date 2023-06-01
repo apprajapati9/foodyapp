@@ -1,13 +1,18 @@
 package com.apprajapati.foody.ui.fragments.foodjoke
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.apprajapati.foody.R
 import com.apprajapati.foody.databinding.FragmentFoodJokeBinding
 import com.apprajapati.foody.util.Constants.Companion.API_KEY
 import com.apprajapati.foody.util.NetworkResult
@@ -25,6 +30,8 @@ class FoodJokeFragment : Fragment() {
 
     private val mainModel: MainViewModel by viewModels()
 
+    private var foodJoke = "No Food Joke!"
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +43,7 @@ class FoodJokeFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.mainViewModel = mainModel
+        setHasOptionsMenu(true)
 
         getFoodJoke()
 
@@ -47,7 +55,11 @@ class FoodJokeFragment : Fragment() {
         mainModel.foodJokeResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    binding.textviewFoodJoke.text = response.data?.joke
+                    val jokeText = response.data?.joke
+                    if (jokeText != null) {
+                        binding.textviewFoodJoke.text = jokeText
+                        foodJoke = jokeText
+                    }
                 }
 
                 is NetworkResult.Error -> {
@@ -67,10 +79,29 @@ class FoodJokeFragment : Fragment() {
         lifecycleScope.launch {
             mainModel.readFoodJoke.observe(viewLifecycleOwner) { database ->
                 if (database.isNotEmpty() && database != null) {
-                    binding.textviewFoodJoke.text = database.get(0).foodJoke.joke
+                    val currentFoodJoke = database.get(0).foodJoke.joke
+                    binding.textviewFoodJoke.text = currentFoodJoke
+                    foodJoke = currentFoodJoke
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.food_joke_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.share_foodJoke_menu) {
+            val shareIntent = Intent().apply {
+                this.action = Intent.ACTION_SEND
+                this.putExtra(Intent.EXTRA_TEXT, foodJoke)
+                this.type = "text/plain"
+            }
+            startActivity(shareIntent)
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {
