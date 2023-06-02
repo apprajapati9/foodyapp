@@ -71,6 +71,8 @@ class FavoriteRecipeAdapter(
         val currentFavRecipe = favoriteRecipes[position]
         holder.bind(currentFavRecipe)
 
+        saveItemStateOnScroll(currentFavRecipe, holder)
+
         /*
         * This is another way to handle onClick method, BindingAdapter method - \
         * onFavoriteRecipeClickListener in FavoritesRecipeBinding does the same thing.
@@ -101,11 +103,19 @@ class FavoriteRecipeAdapter(
                     applySelection(holder, currentFavRecipe)
                     true
                 } else {
-                    multiSelection = false
-                    false
+                    applySelection(holder, currentFavRecipe)
+                    true
                 }
 
             }
+    }
+
+    private fun saveItemStateOnScroll(currentRecipe: FavoritesEntity, holder: FavRecipeViewHolder){
+        if(selectedFoodRecipes.contains(currentRecipe)){
+            changeRecipeStyle(holder, R.color.cardBackgroundLightColor, R.color.colorPrimary)
+        }else{
+            changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+        }
     }
 
 
@@ -120,6 +130,7 @@ class FavoriteRecipeAdapter(
         when (selectedFoodRecipes.size) {
             0 -> {
                 mActionMode.finish()
+                multiSelection = false
             }
 
             1 -> {
