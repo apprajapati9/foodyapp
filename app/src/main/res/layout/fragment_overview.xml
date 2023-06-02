@@ -7,19 +7,21 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_overview_xml_constraintlayout_scene">
 
         <ImageView
             android:id="@+id/imageViewVegan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:tint="@color/itemColor"
             app:layout_constraintStart_toStartOf="@+id/imageViewVegetarian"
             app:layout_constraintTop_toBottomOf="@+id/imageViewVegetarian"
-            app:srcCompat="@drawable/ic_check_mark" />
+            app:srcCompat="@drawable/ic_check_mark"
+            app:tint="@color/itemColor" />
 
         <TextView
             android:id="@+id/textViewVegan"
@@ -120,10 +122,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:tint="@color/itemColor"
             app:layout_constraintStart_toStartOf="@+id/textViewTitle"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
-            app:srcCompat="@drawable/ic_check_mark" />
+            app:srcCompat="@drawable/ic_check_mark"
+            app:tint="@color/itemColor" />
 
         <TextView
             android:id="@+id/textViewVegetarian"
@@ -141,11 +143,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            app:tint="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/textViewVegetarian"
             app:layout_constraintStart_toEndOf="@+id/textViewVegetarian"
             app:layout_constraintTop_toTopOf="@+id/textViewVegetarian"
-            app:srcCompat="@drawable/ic_check_mark" />
+            app:srcCompat="@drawable/ic_check_mark"
+            app:tint="@color/itemColor" />
 
         <TextView
             android:id="@+id/textViewDairyFree"
@@ -163,10 +165,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:tint="@color/itemColor"
             app:layout_constraintStart_toStartOf="@+id/imageViewDairyFree"
             app:layout_constraintTop_toBottomOf="@+id/imageViewDairyFree"
-            app:srcCompat="@drawable/ic_check_mark" />
+            app:srcCompat="@drawable/ic_check_mark"
+            app:tint="@color/itemColor" />
 
         <TextView
             android:id="@+id/textViewGlutenFree"
@@ -184,11 +186,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            app:tint="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/textViewDairyFree"
             app:layout_constraintStart_toEndOf="@+id/textViewDairyFree"
             app:layout_constraintTop_toTopOf="@+id/textViewDairyFree"
-            app:srcCompat="@drawable/ic_check_mark" />
+            app:srcCompat="@drawable/ic_check_mark"
+            app:tint="@color/itemColor" />
 
         <TextView
             android:id="@+id/textViewHealthy"
@@ -206,11 +208,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:tint="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/textViewGlutenFree"
             app:layout_constraintStart_toStartOf="@+id/imageViewHealthy"
             app:layout_constraintTop_toBottomOf="@+id/imageViewHealthy"
-            app:srcCompat="@drawable/ic_check_mark" />
+            app:srcCompat="@drawable/ic_check_mark"
+            app:tint="@color/itemColor" />
 
         <TextView
             android:id="@+id/textViewCheap"
@@ -224,6 +226,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageViewCheap" />
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="12dp"
@@ -248,5 +251,5 @@
             </LinearLayout>
         </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
