@@ -23,6 +23,8 @@
     <color name="yellow">#FFC114</color>
     <color name="green">#00C980</color>
 
+    <color name="backgroundColor">@color/lightGray</color>
+
     <color name="checkedChipBackgroundColor">#206200EA</color>
     <color name="chipBackgroundColor">@color/lightGray</color>
 
@@ -48,5 +50,7 @@
     <color name="bottomNavBackground">@color/white</color>
     <color name="bottomNavItemColor">@color/darkGray</color>
     <color name="bottomNavCheckedItemColor">@color/colorPrimary</color>
+
+    <color name="itemColor">@color/darker</color>
 
 </resources>

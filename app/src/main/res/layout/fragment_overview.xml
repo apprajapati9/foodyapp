@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            app:tint="@color/itemColor"
             app:layout_constraintStart_toStartOf="@+id/imageViewVegetarian"
             app:layout_constraintTop_toBottomOf="@+id/imageViewVegetarian"
             app:srcCompat="@drawable/ic_check_mark" />
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Vegan"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewVegan"
             app:layout_constraintStart_toEndOf="@+id/imageViewVegan"
             app:layout_constraintTop_toTopOf="@+id/imageViewVegan" />
@@ -107,7 +108,7 @@
             android:layout_marginEnd="12dp"
             android:fontFamily="@font/courgette"
             android:text="TitleOfRecipe"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/titleColor"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,6 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            app:tint="@color/itemColor"
             app:layout_constraintStart_toStartOf="@+id/textViewTitle"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
             app:srcCompat="@drawable/ic_check_mark" />
@@ -129,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Vegetarian"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewVegetarian"
             app:layout_constraintStart_toEndOf="@+id/imageViewVegetarian"
             app:layout_constraintTop_toTopOf="@+id/imageViewVegetarian" />
@@ -139,6 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            app:tint="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/textViewVegetarian"
             app:layout_constraintStart_toEndOf="@+id/textViewVegetarian"
             app:layout_constraintTop_toTopOf="@+id/textViewVegetarian"
@@ -150,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Dairy Free"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewDairyFree"
             app:layout_constraintStart_toEndOf="@+id/imageViewDairyFree"
             app:layout_constraintTop_toTopOf="@+id/imageViewDairyFree" />
@@ -160,6 +163,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            app:tint="@color/itemColor"
             app:layout_constraintStart_toStartOf="@+id/imageViewDairyFree"
             app:layout_constraintTop_toBottomOf="@+id/imageViewDairyFree"
             app:srcCompat="@drawable/ic_check_mark" />
@@ -170,7 +174,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Gluten Free"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewGlutenFree"
             app:layout_constraintStart_toEndOf="@+id/imageViewGlutenFree"
             app:layout_constraintTop_toTopOf="@+id/imageViewGlutenFree" />
@@ -180,6 +184,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            app:tint="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/textViewDairyFree"
             app:layout_constraintStart_toEndOf="@+id/textViewDairyFree"
             app:layout_constraintTop_toTopOf="@+id/textViewDairyFree"
@@ -191,7 +196,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Healthy"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewHealthy"
             app:layout_constraintStart_toEndOf="@+id/imageViewHealthy"
             app:layout_constraintTop_toTopOf="@+id/imageViewHealthy" />
@@ -201,6 +206,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            app:tint="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/textViewGlutenFree"
             app:layout_constraintStart_toStartOf="@+id/imageViewHealthy"
             app:layout_constraintTop_toBottomOf="@+id/imageViewHealthy"
@@ -212,7 +218,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Cheap"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/itemColor"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewCheap"
             app:layout_constraintStart_toEndOf="@+id/imageViewCheap"
             app:layout_constraintTop_toTopOf="@+id/imageViewCheap" />
@@ -237,7 +243,7 @@
                     android:id="@+id/textViewSummary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/darkGray"
+                    android:textColor="@color/descriptionColor"
                     android:textSize="16sp" />
             </LinearLayout>
         </ScrollView>
