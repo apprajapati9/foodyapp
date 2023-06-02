@@ -19,6 +19,7 @@ import com.apprajapati.foody.ui.fragments.overview.OverviewFragment
 import com.apprajapati.foody.util.Constants.Companion.RECIPE_BUNDLE_KEY
 import com.apprajapati.foody.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 
@@ -61,9 +62,15 @@ class DetailsActivity : AppCompatActivity() {
         val resultBundle = Bundle()
         resultBundle.putParcelable(RECIPE_BUNDLE_KEY, args.recipeResult)
 
-        val adapter = PagerAdapter(resultBundle, fragments, titles, supportFragmentManager)
-        binding.detailsViewPager.adapter = adapter
-        binding.tabLayout.setupWithViewPager(binding.detailsViewPager)
+        val viewPagerAdapter = PagerAdapter(resultBundle, fragments, this)
+        binding.detailsViewPager.apply {
+            adapter = viewPagerAdapter
+        }
+        //Updated way of using viewpager
+        TabLayoutMediator(binding.tabLayout, binding.detailsViewPager) {
+            tab, position->
+            tab.text = titles[position]
+        }.attach()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

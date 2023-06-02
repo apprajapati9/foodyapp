@@ -38,7 +38,7 @@ class FavoriteRecipeAdapter(
     private lateinit var mActionMode: ActionMode
     private lateinit var rootView: View
 
-    class FavRecipeViewHolder(private val binding: FavoriteRecipeItemLayoutBinding) :
+    class FavRecipeViewHolder(val binding: FavoriteRecipeItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(favoritesEntity: FavoritesEntity) {
@@ -77,7 +77,7 @@ class FavoriteRecipeAdapter(
         *
         * Single Click Listener
         *  */
-        holder.itemView.findViewById<ConstraintLayout>(R.id.favorite_recipe_raw_layout)
+        holder.binding.favoriteRecipeRawLayout
             .setOnClickListener {
 
                 if (multiSelection) {
@@ -93,7 +93,7 @@ class FavoriteRecipeAdapter(
         /*
         * Long click listener
         * */
-        holder.itemView.findViewById<ConstraintLayout>(R.id.favorite_recipe_raw_layout)
+        holder.binding.favoriteRecipeRawLayout
             .setOnLongClickListener {
                 if (!multiSelection) {
                     multiSelection = true
