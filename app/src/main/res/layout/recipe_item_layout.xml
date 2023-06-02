@@ -97,10 +97,9 @@
 
                 <TextView
                     android:id="@+id/textView_likes"
-                    setNumberOfLikes="@{result.aggregateLikes}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="@{String.valueOf(result.aggregateLikes)}}"
                     android:textColor="@color/red"
                     app:layout_constraintStart_toStartOf="@+id/textView_recipe_description"
                     app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -117,11 +116,10 @@
 
                 <TextView
                     android:id="@+id/textView_time"
-                    setNumberOfMinutes="@{result.readyInMinutes}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:text="0"
+                    android:text="@{String.valueOf(result.readyInMinutes)}}"
                     android:textColor="@color/yellow"
                     app:layout_constraintStart_toEndOf="@+id/textView_likes"
                     app:layout_constraintTop_toBottomOf="@+id/imageView_time" />

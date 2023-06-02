@@ -44,18 +44,6 @@ class RecipesRowBinding {
             }
         }
 
-        @BindingAdapter("setNumberOfLikes")
-        @JvmStatic
-        fun setNumberOfLikes(textView: TextView, likes: Int) {
-            textView.text = likes.toString()
-        }
-
-        @BindingAdapter("setNumberOfMinutes")
-        @JvmStatic
-        fun setNumberOfMinutes(view: TextView, minutes: Int) {
-            view.text = minutes.toString()
-        }
-
         @BindingAdapter("setVeganColor")
         @JvmStatic
         fun setVeganColor(view: View, isVegan: Boolean) {
