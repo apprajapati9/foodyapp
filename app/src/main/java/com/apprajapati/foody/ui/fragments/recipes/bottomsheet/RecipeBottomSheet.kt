@@ -51,18 +51,19 @@ class RecipeBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.chipGroupMealType.setOnCheckedStateChangeListener { group, selectedChipIds ->
-            val chip = group.findViewById<Chip>(selectedChipIds.get(0))
+
+            val chip = group.findViewById<Chip>(selectedChipIds.first())
             val selectedMealType = chip.text.toString().lowercase()
             mealTypeChip = selectedMealType
-            mealTypeChipId = selectedChipIds.get(0)
+            mealTypeChipId = selectedChipIds.first()
         }
 
         binding.chipGroupDietType.setOnCheckedStateChangeListener { group, selectedIds ->
 
-            val chip = group.findViewById<Chip>(selectedIds.get(0))
+            val chip = group.findViewById<Chip>(selectedIds.first())
             val selectedDietType = chip.text.toString().lowercase()
             dietTypeChip = selectedDietType
-            dietTypeChipId = selectedIds.get(0)
+            dietTypeChipId = selectedIds.first()
         }
 
         binding.buttonApply.setOnClickListener {
@@ -84,7 +85,7 @@ class RecipeBottomSheet : BottomSheetDialogFragment() {
             try {
                 val selectedChip = chipGroup.findViewById<Chip>(chipId)
                 selectedChip.isChecked = true
-                chipGroup.requestChildFocus(selectedChip, chipGroup)
+                chipGroup.requestChildFocus(selectedChip, selectedChip)
             } catch (e: Exception) {
                 Log.d("RecipesBottomSheet", e.message.toString())
             }

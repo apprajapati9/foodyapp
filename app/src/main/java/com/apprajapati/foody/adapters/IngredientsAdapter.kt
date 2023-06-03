@@ -10,6 +10,7 @@ import com.apprajapati.foody.databinding.IngredientsItemLayoutBinding
 import com.apprajapati.foody.models.ExtendedIngredient
 import com.apprajapati.foody.util.Constants.Companion.BASE_IMAGE_URL
 import com.apprajapati.foody.util.RecipesDiffUtil
+import java.util.Locale
 
 
 class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.MyViewHolder>() {
@@ -34,7 +35,11 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.MyViewHolder>
             crossfade(600)
             error(R.drawable.ic_error_placeholder)
         }
-        holder.binding.textViewIngredientName.text = ingredient.name.capitalize()
+        holder.binding.textViewIngredientName.text = ingredient.name.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
         holder.binding.textViewIngredientAmount.text = ingredient.amount.toString()
         holder.binding.textViewIngredientUnit.text = ingredient.unit
         holder.binding.textViewIngredientConsistency.text = ingredient.consistency
