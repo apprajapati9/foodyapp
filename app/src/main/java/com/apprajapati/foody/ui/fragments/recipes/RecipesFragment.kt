@@ -130,6 +130,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                 is NetworkResult.Success -> {
                     response.data.let { mAdapter.setData(it!!) }
                     hideLoadingEffect()
+                    recipesViewModel.saveMealAndDietType()
                 }
 
                 is NetworkResult.Error -> {

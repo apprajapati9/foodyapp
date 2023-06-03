@@ -66,13 +66,13 @@ class RecipeBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.buttonApply.setOnClickListener {
-            recipesViewModel.saveMealAndDietType(
+            recipesViewModel.saveMealAndDietTypeTemporary(
                 mealTypeChip,
                 mealTypeChipId,
                 dietTypeChip,
                 dietTypeChipId
             )
-            val action =  RecipeBottomSheetDirections.actionRecipeBottomSheetToRecipeFragment(true)
+            val action = RecipeBottomSheetDirections.actionRecipeBottomSheetToRecipeFragment(true)
             findNavController().navigate(action)
         }
 
@@ -82,7 +82,9 @@ class RecipeBottomSheet : BottomSheetDialogFragment() {
     private fun updateChipValues(chipId: Int, chipGroup: ChipGroup) {
         if (chipId != 0) {
             try {
-                chipGroup.findViewById<Chip>(chipId).isChecked = true
+                val selectedChip = chipGroup.findViewById<Chip>(chipId)
+                selectedChip.isChecked = true
+                chipGroup.requestChildFocus(selectedChip, chipGroup)
             } catch (e: Exception) {
                 Log.d("RecipesBottomSheet", e.message.toString())
             }
