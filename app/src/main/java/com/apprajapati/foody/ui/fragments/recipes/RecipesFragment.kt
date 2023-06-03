@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -22,6 +26,7 @@ import com.apprajapati.foody.databinding.RecipeFragmentBinding
 import com.apprajapati.foody.util.NetworkListener
 import com.apprajapati.foody.util.NetworkResult
 import com.apprajapati.foody.util.observeOnce
+import com.apprajapati.foody.util.showSnackBar
 import com.apprajapati.foody.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -50,7 +55,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
 
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
-        setHasOptionsMenu(true) //TODO : Upgrade to new best practice.
+
     }
 
     override fun onCreateView(
@@ -61,7 +66,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
         _binding = RecipeFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.mainViewModel = mainViewModel
-
+        setUpMenu()
         setupRecyclerView()
         //readDatabase()
 
@@ -113,14 +118,6 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
-    }
-
     private fun requestApiData() {
         Log.d("RecipesFragment", "RequestApiData Called.")
         mainViewModel.getRecipes(recipesViewModel.applyQueries())
@@ -150,7 +147,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
-    private fun showLoadingEffect(){
+    private fun showLoadingEffect() {
         binding.shimmerFrameLayout.startShimmer()
         binding.shimmerFrameLayout.visibility = View.VISIBLE
         binding.recyclerView.visibility = View.GONE
@@ -197,14 +194,23 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.recipes_menu, menu)
+    private fun setUpMenu() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.recipes_menu, menu)
 
-        val search = menu.findItem(R.id.menu_search)
-        val searchView = search.actionView as? SearchView
+                val search = menu.findItem(R.id.menu_search)
+                val searchView = search.actionView as? SearchView
+                searchView?.isSubmitButtonEnabled = true
+                searchView?.setOnQueryTextListener(this@RecipesFragment)
+            }
 
-        searchView?.isSubmitButtonEnabled = true
-        searchView?.setOnQueryTextListener(this)
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return true
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
 

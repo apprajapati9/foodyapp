@@ -35,7 +35,7 @@ class DetailsActivity : AppCompatActivity() {
     private var recipeSaved = false
     private var savedRecipeId = 0
 
-    private lateinit var menuItem : MenuItem
+    private lateinit var menuItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,12 +65,13 @@ class DetailsActivity : AppCompatActivity() {
         resultBundle.putParcelable(RECIPE_BUNDLE_KEY, args.recipeResult)
 
         val viewPagerAdapter = PagerAdapter(resultBundle, fragments, this)
+        binding.detailsViewPager.isUserInputEnabled =
+            false //To prevent swipe gesture to switch among tabs which will prevent scrolling and swiping gesture mixed up and causing bugs
         binding.detailsViewPager.apply {
             adapter = viewPagerAdapter
         }
         //Updated way of using viewpager
-        TabLayoutMediator(binding.tabLayout, binding.detailsViewPager) {
-            tab, position->
+        TabLayoutMediator(binding.tabLayout, binding.detailsViewPager) { tab, position ->
             tab.text = titles[position]
         }.attach()
     }

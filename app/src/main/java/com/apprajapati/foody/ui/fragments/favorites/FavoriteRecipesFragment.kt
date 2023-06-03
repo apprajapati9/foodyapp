@@ -8,7 +8,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apprajapati.foody.R
 import com.apprajapati.foody.adapters.FavoriteRecipeAdapter
@@ -49,7 +52,9 @@ class FavoriteRecipesFragment : Fragment() {
 
         binding.mainViewModel = mainViewModel
         binding.mAdapter = mAdapter
-        setHasOptionsMenu(true)
+
+        setUpMenu()
+
 
         setupRecyclerView()
         return binding.root
@@ -61,21 +66,22 @@ class FavoriteRecipesFragment : Fragment() {
         binding.favRecipeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun setUpMenu() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.favorite_recipes_menu, menu)
+            }
 
-    }
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.delete_all_fav_recipe_menu) {
+                    mainViewModel.deleteAllFavoriteRecipe()
+                    showSnackBar(binding.root, "All recipes removed.")
+                }
+                return true
+            }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.favorite_recipes_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.delete_all_fav_recipe_menu) {
-            mainViewModel.deleteAllFavoriteRecipe()
-            showSnackBar(binding.root, "All recipes removed.")
-        }
-        return super.onOptionsItemSelected(item)
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onDestroyView() {
