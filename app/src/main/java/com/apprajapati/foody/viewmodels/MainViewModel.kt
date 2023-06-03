@@ -20,7 +20,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.security.spec.ECField
 import javax.inject.Inject
 
 @HiltViewModel  //Must annotate with this if you are using Hilt. Without this, cannot access MainViewModel in fragments and will throw mainActivity layout inflate error.

@@ -26,7 +26,6 @@ import com.apprajapati.foody.databinding.RecipeFragmentBinding
 import com.apprajapati.foody.util.NetworkListener
 import com.apprajapati.foody.util.NetworkResult
 import com.apprajapati.foody.util.observeOnce
-import com.apprajapati.foody.util.showSnackBar
 import com.apprajapati.foody.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -38,6 +37,7 @@ import kotlinx.coroutines.launch
 class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private val args by navArgs<RecipesFragmentArgs>()
+    var backFromBottomSheet = false
 
     private var _binding: RecipeFragmentBinding? = null
     private val mAdapter by lazy { RecipesAdapter() }
@@ -64,7 +64,8 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
     ): View {
 
         _binding = RecipeFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner =
+            viewLifecycleOwner // viewlifecycleowner instead of this - warning appears if you use this - can cause memory leak.
         binding.mainViewModel = mainViewModel
         setUpMenu()
         setupRecyclerView()
@@ -83,6 +84,9 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                 readDatabase()
             }
         }
+
+        backFromBottomSheet = recipesViewModel.backFromBottomSheet
+        Log.d("RecipesFragment", "BackFromBottomSheet value=" + backFromBottomSheet)
 
         // requestApiData()
 
@@ -107,12 +111,13 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun readDatabase() {
         lifecycleScope.launch {
             mainViewModel.readRecipes.observeOnce(viewLifecycleOwner) { database ->
-                if (database.isNotEmpty() && !args.backFromBottomSheet) {
+                if (database.isNotEmpty() && !backFromBottomSheet) {
                     Log.d("RecipesFragment", "ReadDatabase Called.")
                     mAdapter.setData(database[0].foodRecipe)
                     hideLoadingEffect()
                 } else {
                     requestApiData()
+                    recipesViewModel.backFromBottomSheet = false
                 }
             }
         }

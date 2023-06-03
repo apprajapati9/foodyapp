@@ -41,6 +41,8 @@ class RecipesViewModel @Inject constructor(
     var networkStatus = false
     var backOnline = false
 
+    var backFromBottomSheet: Boolean = false
+
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
 

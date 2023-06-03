@@ -3,7 +3,7 @@ package com.apprajapati.foody.util
 class Constants {
 
     companion object {
-        const val API_KEY = "2699101680eb47179ac7a04c30b46429"
+        const val API_KEY = "bf099b9f752842549cd45d704996007c"
         const val BASE_URL = "https://api.spoonacular.com"
         const val BASE_IMAGE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
         const val FOOD_JOKE_ENDPOINT = BASE_URL + "/food/jokes/random"
