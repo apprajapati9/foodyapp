@@ -105,6 +105,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                 if (database.isNotEmpty() && !args.backFromBottomSheet) {
                     Log.d("RecipesFragment", "ReadDatabase Called.")
                     mAdapter.setData(database[0].foodRecipe)
+                    hideLoadingEffect()
                 } else {
                     requestApiData()
                 }
@@ -128,9 +129,11 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
             when (response) {
                 is NetworkResult.Success -> {
                     response.data.let { mAdapter.setData(it!!) }
+                    hideLoadingEffect()
                 }
 
                 is NetworkResult.Error -> {
+                    hideLoadingEffect()
                     loadDataFromCache()
                     Toast.makeText(
                         requireContext(),
@@ -140,10 +143,22 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                 }
 
                 is NetworkResult.Loading -> {
-                    // show loading effect.
+                    showLoadingEffect()
                 }
             }
         }
+    }
+
+    private fun showLoadingEffect(){
+        binding.shimmerFrameLayout.startShimmer()
+        binding.shimmerFrameLayout.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.GONE
+    }
+
+    private fun hideLoadingEffect() {
+        binding.shimmerFrameLayout.stopShimmer()
+        binding.shimmerFrameLayout.visibility = View.GONE
+        binding.recyclerView.visibility = View.VISIBLE
     }
 
     private fun loadDataFromCache() {

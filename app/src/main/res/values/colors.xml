@@ -52,5 +52,6 @@
     <color name="bottomNavCheckedItemColor">@color/colorPrimary</color>
 
     <color name="itemColor">@color/darker</color>
+    <color name="placeHolderColor">@color/mediumGray</color>
 
 </resources>

@@ -3,7 +3,6 @@ package com.apprajapati.foody.data
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.IOException
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
@@ -20,7 +19,7 @@ import com.apprajapati.foody.util.Constants.Companion.PREFERENCES_MEAL_TYPE_ID
 import com.apprajapati.foody.util.Constants.Companion.PREFERENCES_NAME
 import com.apprajapati.foody.util.Constants.Companion.PREFERENCE_BACK_ONLINE
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -28,7 +27,7 @@ import javax.inject.Inject
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(PREFERENCES_NAME)
 
-@ActivityRetainedScoped
+@ViewModelScoped
 class DataStoreRepository @Inject constructor(@ApplicationContext private val context: Context) {
 
     private object PreferenceKeys {
