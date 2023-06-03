@@ -96,7 +96,7 @@
             android:layout_marginTop="8dp"
             android:alpha="0.5"
             android:text="Error"
-            android:textColor="@color/dark"
+            android:textColor="@color/titleColor"
             android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="invisible"
