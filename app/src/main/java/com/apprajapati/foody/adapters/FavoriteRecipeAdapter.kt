@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -18,10 +17,9 @@ import com.apprajapati.foody.data.database.entities.FavoritesEntity
 import com.apprajapati.foody.databinding.FavoriteRecipeItemLayoutBinding
 import com.apprajapati.foody.ui.fragments.favorites.FavoriteRecipesFragmentDirections
 import com.apprajapati.foody.util.RecipesDiffUtil
+import com.apprajapati.foody.util.showSnackBar
 import com.apprajapati.foody.viewmodels.MainViewModel
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.snackbar.Snackbar
-
 class FavoriteRecipeAdapter(
     private val requireActivity: FragmentActivity,
     private val mainViewModel: MainViewModel
@@ -110,10 +108,10 @@ class FavoriteRecipeAdapter(
             }
     }
 
-    private fun saveItemStateOnScroll(currentRecipe: FavoritesEntity, holder: FavRecipeViewHolder){
-        if(selectedFoodRecipes.contains(currentRecipe)){
+    private fun saveItemStateOnScroll(currentRecipe: FavoritesEntity, holder: FavRecipeViewHolder) {
+        if (selectedFoodRecipes.contains(currentRecipe)) {
             changeRecipeStyle(holder, R.color.cardBackgroundLightColor, R.color.colorPrimary)
-        }else{
+        } else {
             changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
         }
     }
@@ -134,11 +132,17 @@ class FavoriteRecipeAdapter(
             }
 
             1 -> {
-                mActionMode.title = "${selectedFoodRecipes.size} item selected"
+                mActionMode.title = requireActivity.getString(
+                    R.string.one_item_selected_message,
+                    selectedFoodRecipes.size
+                )
             }
 
             else -> {
-                mActionMode.title = "${selectedFoodRecipes.size} items selected"
+                mActionMode.title = requireActivity.getString(
+                    R.string.more_item_selected_message,
+                    selectedFoodRecipes.size
+                )
 
             }
         }
@@ -179,7 +183,12 @@ class FavoriteRecipeAdapter(
             selectedFoodRecipes.forEach {
                 mainViewModel.deleteFavoriteRecipe(it)
             }
-            showSnackBar("${selectedFoodRecipes.size} Recipe/s removed.")
+            showSnackBar(rootView,
+                requireActivity.getString(
+                    R.string.recipe_remove_counter_message,
+                    selectedFoodRecipes.size
+                )
+            )
 
             multiSelection = false
             selectedFoodRecipes.clear()
@@ -198,16 +207,13 @@ class FavoriteRecipeAdapter(
         }
     }
 
-    private fun showSnackBar(message: String) {
-        Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT).setAction("Okay") {}.show()
-    }
 
     private fun applyStatusBarColor(color: Int) {
         requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
     }
 
-    fun clearContextualActionMode(){
-        if(this::mActionMode.isInitialized){
+    fun clearContextualActionMode() {
+        if (this::mActionMode.isInitialized) {
             mActionMode.finish()
         }
     }

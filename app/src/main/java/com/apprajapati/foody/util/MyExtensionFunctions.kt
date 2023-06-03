@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.apprajapati.foody.R
 import com.google.android.material.snackbar.Snackbar
 
 fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
@@ -17,5 +18,5 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
 }
 
 fun showSnackBar(view: View, message: String) {
-    Snackbar.make(view, message, Snackbar.LENGTH_SHORT).setAction("Okay"){}.show()
+    Snackbar.make(view, message, Snackbar.LENGTH_SHORT).setAction(view.context.getString(R.string.snack_bar_okay_action_message)){}.show()
 }

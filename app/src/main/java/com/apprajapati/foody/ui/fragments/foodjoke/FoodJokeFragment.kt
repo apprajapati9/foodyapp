@@ -10,6 +10,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -97,6 +98,13 @@ class FoodJokeFragment : Fragment() {
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.food_joke_menu, menu)
+
+                menu.findItem(R.id.share_foodJoke_menu).icon?.setTint(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -107,7 +115,6 @@ class FoodJokeFragment : Fragment() {
                         this.type = "text/plain"
                     }
                     startActivity(shareIntent)
-
                 }
                 return true
             }

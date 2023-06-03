@@ -21,7 +21,6 @@ import com.apprajapati.foody.util.Constants.Companion.QUERY_SEARCH
 import com.apprajapati.foody.util.Constants.Companion.QUERY_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -76,7 +75,7 @@ class RecipesViewModel @Inject constructor(
         val q = queries.map {
             "${it.key}: ${it.value}"
         }
-        Log.d("Queries", q.toString());
+        Log.d("Queries", q.toString())
         return queries
     }
 
@@ -91,7 +90,7 @@ class RecipesViewModel @Inject constructor(
         val q = queries.map {
             "${it.key}: ${it.value}"
         }
-        Log.d("Queries", q.toString());
+        Log.d("Queries", q.toString())
 
         return queries
     }

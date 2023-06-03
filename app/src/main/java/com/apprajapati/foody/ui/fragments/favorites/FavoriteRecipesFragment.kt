@@ -76,7 +76,7 @@ class FavoriteRecipesFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 if (menuItem.itemId == R.id.delete_all_fav_recipe_menu) {
                     mainViewModel.deleteAllFavoriteRecipe()
-                    showSnackBar(binding.root, "All recipes removed.")
+                    showSnackBar(binding.root, getString(R.string.snack_bar_all_recipe_removed_message))
                 }
                 return true
             }

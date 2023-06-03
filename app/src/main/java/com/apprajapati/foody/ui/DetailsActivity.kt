@@ -17,6 +17,7 @@ import com.apprajapati.foody.ui.fragments.ingredients.IngredientsFragment
 import com.apprajapati.foody.ui.fragments.instructions.InstructionsFragment
 import com.apprajapati.foody.ui.fragments.overview.OverviewFragment
 import com.apprajapati.foody.util.Constants.Companion.RECIPE_BUNDLE_KEY
+import com.apprajapati.foody.util.showSnackBar
 import com.apprajapati.foody.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
@@ -57,9 +58,9 @@ class DetailsActivity : AppCompatActivity() {
         fragments.add(InstructionsFragment())
 
         val titles = ArrayList<String>()
-        titles.add("Overview")
-        titles.add("Ingredients")
-        titles.add("Instructions")
+        titles.add(getString(R.string.tab_overview))
+        titles.add(getString(R.string.tab_ingredients))
+        titles.add(getString(R.string.tab_instructions))
 
         val resultBundle = Bundle()
         resultBundle.putParcelable(RECIPE_BUNDLE_KEY, args.recipeResult)
@@ -115,8 +116,7 @@ class DetailsActivity : AppCompatActivity() {
         val favoritesEntity = FavoritesEntity(0, args.recipeResult)
         mainViewModel.insertFavoriteRecipe(favoritesEntity)
         changeMenuItemColor(item, R.color.yellow)
-        Snackbar.make(binding.root, "Recipe Saved.", Snackbar.LENGTH_SHORT).setAction("Okay") {}
-            .show()
+        showSnackBar(binding.root, getString(R.string.recipe_saved_message))
         recipeSaved = true
     }
 
@@ -124,8 +124,7 @@ class DetailsActivity : AppCompatActivity() {
         val favoritesEntity = FavoritesEntity(savedRecipeId, args.recipeResult)
         mainViewModel.deleteFavoriteRecipe(favoritesEntity)
         changeMenuItemColor(item, R.color.white)
-        Snackbar.make(binding.root, "Recipe removed from Favorites.", Snackbar.LENGTH_SHORT)
-            .setAction("Okay") {}.show()
+        showSnackBar(binding.root, getString(R.string.recipe_removed_message))
         recipeSaved = false
     }
 
