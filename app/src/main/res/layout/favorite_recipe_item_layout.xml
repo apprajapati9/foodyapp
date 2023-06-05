@@ -128,7 +128,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:text="Vegan"
-                    android:textColor="@color/darkGray"
                     app:layout_constraintStart_toEndOf="@+id/textview_fav_time"
                     app:layout_constraintTop_toBottomOf="@+id/imageview_vegan_indicator" />
 

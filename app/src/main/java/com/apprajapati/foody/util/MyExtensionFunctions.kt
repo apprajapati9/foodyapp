@@ -1,5 +1,8 @@
 package com.apprajapati.foody.util
 
+import android.os.Build.VERSION.SDK_INT
+import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -19,4 +22,9 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
 
 fun showSnackBar(view: View, message: String) {
     Snackbar.make(view, message, Snackbar.LENGTH_SHORT).setAction(view.context.getString(R.string.snack_bar_okay_action_message)){}.show()
+}
+
+inline fun <reified T : Parcelable> Bundle.retrieveParcelable(key: String): T? = when {
+    SDK_INT >= 33 -> getParcelable(key, T::class.java)
+    else -> @Suppress("DEPRECATION") getParcelable(key) as? T
 }

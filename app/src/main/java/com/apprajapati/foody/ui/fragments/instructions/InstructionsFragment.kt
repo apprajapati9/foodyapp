@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.apprajapati.foody.databinding.FragmentInstructionsBinding
 import com.apprajapati.foody.models.Result
 import com.apprajapati.foody.util.Constants.Companion.RECIPE_BUNDLE_KEY
+import com.apprajapati.foody.util.retrieveParcelable
 
 class InstructionsFragment : Fragment() {
 
@@ -29,7 +30,7 @@ class InstructionsFragment : Fragment() {
 
     private fun setupWebView() {
         val args = arguments
-        val myBundle: Result? = args?.getParcelable(RECIPE_BUNDLE_KEY)
+        val myBundle: Result? = args?.retrieveParcelable(RECIPE_BUNDLE_KEY)
         binding.webViewInstructions.webViewClient = object : WebViewClient() {}
         binding.webViewInstructions.loadUrl(myBundle!!.sourceUrl)
     }

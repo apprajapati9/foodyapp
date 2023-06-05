@@ -36,9 +36,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
 
-    private val args by navArgs<RecipesFragmentArgs>()
-    var backFromBottomSheet = false
-
     private var _binding: RecipeFragmentBinding? = null
     private val mAdapter by lazy { RecipesAdapter() }
     private lateinit var mainViewModel: MainViewModel
@@ -85,8 +82,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
             }
         }
 
-        backFromBottomSheet = recipesViewModel.backFromBottomSheet
-        Log.d("RecipesFragment", "BackFromBottomSheet value=" + backFromBottomSheet)
+        Log.d("RecipesFragment", "BackFromBottomSheet value=" + recipesViewModel.backFromBottomSheet)
 
         // requestApiData()
 
@@ -111,7 +107,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun readDatabase() {
         lifecycleScope.launch {
             mainViewModel.readRecipes.observeOnce(viewLifecycleOwner) { database ->
-                if (database.isNotEmpty() && !backFromBottomSheet) {
+                if (database.isNotEmpty() && !recipesViewModel.backFromBottomSheet) {
                     Log.d("RecipesFragment", "ReadDatabase Called.")
                     mAdapter.setData(database[0].foodRecipe)
                     hideLoadingEffect()
