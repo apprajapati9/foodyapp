@@ -156,7 +156,7 @@ class MainViewModel @Inject constructor(
                 return NetworkResult.Error("API Key Limited.")
             }
 
-            response.body()!!.results.isNullOrEmpty() -> {
+            response.body()!!.results.isEmpty() -> {
                 return NetworkResult.Error("Recipes not found.")
             }
 
