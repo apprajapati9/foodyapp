@@ -30,12 +30,11 @@ class RecipesViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository
 ) : AndroidViewModel(application) {
 
+    private lateinit var mealAndDiet: MealAndDietType
     private var mealType = DEFAULT_MEAL_TYPE
     private var dietType = DEFAULT_DIET_TYPE
 
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
-
-    private lateinit var mealAndDiet: MealAndDietType
 
 
     var networkStatus = false
@@ -51,12 +50,15 @@ class RecipesViewModel @Inject constructor(
 
     fun saveMealAndDietType() =
         viewModelScope.launch(Dispatchers.IO) {
-            dataStoreRepository.saveMealAndDietType(
-                mealAndDiet.selectedMealType,
-                mealAndDiet.selectedMealTypeId,
-                mealAndDiet.selectedDietType,
-                mealAndDiet.selectedDietTypeId
-            )
+            if(this@RecipesViewModel::mealAndDiet.isInitialized) {
+                dataStoreRepository.saveMealAndDietType(
+                    mealAndDiet.selectedMealType,
+                    mealAndDiet.selectedMealTypeId,
+                    mealAndDiet.selectedDietType,
+                    mealAndDiet.selectedDietTypeId
+                )
+            }
+
         }
 
     fun saveMealAndDietTypeTemporary(meal: String, mealId: Int, diet: String, dietId: Int) {
@@ -69,8 +71,14 @@ class RecipesViewModel @Inject constructor(
 
         queries[QUERY_NUMBER] = DEFAULT_RECIPE_NUMBER
         queries[QUERY_KEY] = API_KEY
-        queries[QUERY_TYPE] = mealAndDiet.selectedMealType
-        queries[QUERY_DIET] = mealAndDiet.selectedDietType
+        if(this@RecipesViewModel::mealAndDiet.isInitialized){
+            queries[QUERY_TYPE] = mealAndDiet.selectedMealType
+            queries[QUERY_DIET] = mealAndDiet.selectedDietType
+        }else{
+            queries[QUERY_TYPE] = mealType
+            queries[QUERY_DIET] = dietType
+        }
+
         queries[QUERY_ADD_RECIPE_INFORMATION] = "true"
         queries[QUERY_FILL_INGREDIENTS] = "true"
 
