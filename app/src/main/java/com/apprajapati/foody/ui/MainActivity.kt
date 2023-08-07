@@ -6,7 +6,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
-import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
 import com.apprajapati.foody.R

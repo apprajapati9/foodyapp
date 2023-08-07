@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apprajapati.foody.R
 import com.apprajapati.foody.viewmodels.MainViewModel
@@ -53,7 +52,6 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
 
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
-
     }
 
     override fun onCreateView(
@@ -85,13 +83,6 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
             }
         }
 
-        Log.d(
-            "RecipesFragment",
-            "BackFromBottomSheet value=" + recipesViewModel.backFromBottomSheet
-        )
-
-        // requestApiData()
-
         binding.floatingRecipeFilterButton.setOnClickListener {
             if (recipesViewModel.networkStatus) {
                 findNavController().navigate(R.id.action_recipeFragment_to_recipeBottomSheet)
@@ -118,9 +109,22 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                     mAdapter.setData(database[0].foodRecipe)
                     hideLoadingEffect()
                 } else {
-                    requestApiData()
+                    fetchApiKey()
+                    Log.d("Ajay", "fetchApiKey() method call from readDatabase else.")
+                    //requestApiData()
                     recipesViewModel.backFromBottomSheet = false
                 }
+            }
+        }
+    }
+
+    fun fetchApiKey(){
+
+        mainViewModel.apiKey.observe(viewLifecycleOwner){key->
+            Log.d("Ajay", "apikey observer called.")
+            if(!key.isEmpty()){
+                Log.d("Ajay", "apikey observer key not empty ${key}, calling requestApiData()") // TODO: remove log in release build.
+                requestApiData()
             }
         }
     }

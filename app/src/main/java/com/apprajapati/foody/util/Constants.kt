@@ -3,10 +3,12 @@ package com.apprajapati.foody.util
 class Constants {
 
     companion object {
-        const val API_KEY = "bf099b9f752842549cd45d704996007c"
+        var API_KEY = ""
         const val BASE_URL = "https://api.spoonacular.com"
         const val BASE_IMAGE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
         const val FOOD_JOKE_ENDPOINT = BASE_URL + "/food/jokes/random"
+
+        const val SERVER_API_KEY_URL = "https://drive.google.com/uc?id=1ZBC_k41sjurvymqm07vdDQp9ENkAWyUx"
 
         //recipe details safe arg bundle name
         const val RECIPE_BUNDLE_KEY = "recipeBundle"
@@ -40,3 +42,5 @@ class Constants {
         const val PREFERENCE_BACK_ONLINE = "backOnline"
     }
 }
+
+//To test API key url =  https://api.spoonacular.com/food/jokes/random?apiKey=47ca10b38f6b4cb1b8bc2beb51d1e286

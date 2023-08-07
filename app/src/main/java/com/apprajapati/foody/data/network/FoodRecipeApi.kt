@@ -1,7 +1,9 @@
-package com.apprajapati.foody.data.netweork
+package com.apprajapati.foody.data.network
 
 import com.apprajapati.foody.models.FoodJoke
 import com.apprajapati.foody.models.FoodRecipe
+import com.apprajapati.foody.util.Constants.Companion.SERVER_API_KEY_URL
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -20,4 +22,6 @@ interface FoodRecipeApi {
     @GET("/food/jokes/random")
     suspend fun getFoodJoke(@Query("apiKey") apiKey : String) : Response<FoodJoke>
 
+    @GET(SERVER_API_KEY_URL)
+    suspend fun getApiKey() : Response<ResponseBody>
 }

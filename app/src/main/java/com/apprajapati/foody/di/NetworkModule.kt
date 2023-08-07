@@ -1,7 +1,7 @@
 package com.apprajapati.foody.di
 
 import com.apprajapati.foody.util.Constants.Companion.BASE_URL
-import com.apprajapati.foody.data.netweork.FoodRecipeApi
+import com.apprajapati.foody.data.network.FoodRecipeApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,7 +42,7 @@ object NetworkModule {
             .build()
     }
 
-    @Singleton
+    @Singleton //To make sure different instances accessing this will get the same instance rather than 2 instances running.
     @Provides
     fun provideApiService(retrofit : Retrofit) : FoodRecipeApi {
         return retrofit.create(FoodRecipeApi::class.java)
