@@ -206,6 +206,10 @@ class MainViewModel @Inject constructor(
                 return NetworkResult.Error("API Key Limited.")
             }
 
+            response.code() == 500 -> {
+                return NetworkResult.Error("Internal server error. Please try again after some time.")
+            }
+
             response.body()!!.results.isEmpty() -> {
                 return NetworkResult.Error("Recipes not found.")
             }
@@ -225,6 +229,10 @@ class MainViewModel @Inject constructor(
         return when {
             response.message().toString().contains("timeout") -> {
                 NetworkResult.Error("Timeout")
+            }
+
+            response.code() == 500 -> {
+                NetworkResult.Error("Internal server error. Please try again after some time.")
             }
 
             response.code() == 401 -> {

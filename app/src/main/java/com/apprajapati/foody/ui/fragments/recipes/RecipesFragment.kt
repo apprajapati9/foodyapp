@@ -2,17 +2,15 @@ package com.apprajapati.foody.ui.fragments.recipes
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -20,12 +18,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apprajapati.foody.R
-import com.apprajapati.foody.viewmodels.MainViewModel
 import com.apprajapati.foody.adapters.RecipesAdapter
 import com.apprajapati.foody.databinding.RecipeFragmentBinding
+import com.apprajapati.foody.ui.BaseFragment
 import com.apprajapati.foody.util.NetworkListener
 import com.apprajapati.foody.util.NetworkResult
 import com.apprajapati.foody.util.observeOnce
+import com.apprajapati.foody.viewmodels.MainViewModel
 import com.apprajapati.foody.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -34,16 +33,12 @@ import kotlinx.coroutines.launch
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 @AndroidEntryPoint
-class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
+class RecipesFragment : BaseFragment<RecipeFragmentBinding>(RecipeFragmentBinding::inflate),
+    SearchView.OnQueryTextListener {
 
-    private var _binding: RecipeFragmentBinding? = null
     private val mAdapter by lazy { RecipesAdapter() }
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
     private lateinit var networkListener: NetworkListener
 
@@ -54,12 +49,9 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
         recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        _binding = RecipeFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner =
             viewLifecycleOwner // viewlifecycleowner instead of this - warning appears if you use this - can cause memory leak.
         binding.mainViewModel = mainViewModel
@@ -91,14 +83,11 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
             }
 
         }
-
-        return binding.root
-
     }
 
     private fun setupRecyclerView() {
-        _binding!!.recyclerView.adapter = mAdapter
-        _binding!!.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = mAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun readDatabase() {
@@ -118,12 +107,14 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
-    fun fetchApiKey(){
+    fun fetchApiKey() {
 
-        mainViewModel.apiKey.observe(viewLifecycleOwner){key->
+        mainViewModel.apiKey.observe(viewLifecycleOwner) { key ->
             Log.d("Ajay", "apikey observer called.")
-            if(!key.isEmpty()){
-                Log.d("Ajay", "apikey observer key not empty ${key}, calling requestApiData()") // TODO: remove log in release build.
+            if (!key.isEmpty()) {
+                Log.d(
+                    "Ajay", "apikey observer key not empty ${key}, calling requestApiData()"
+                ) // TODO: remove log in release build.
                 requestApiData()
             }
         }
@@ -145,9 +136,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                     hideLoadingEffect()
                     loadDataFromCache()
                     Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
+                        requireContext(), response.message.toString(), Toast.LENGTH_SHORT
                     ).show()
                 }
 
@@ -190,9 +179,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                 is NetworkResult.Error -> {
                     loadDataFromCache()
                     Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
+                        requireContext(), response.message.toString(), Toast.LENGTH_SHORT
                     ).show()
                 }
 
@@ -232,10 +219,5 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onQueryTextChange(newText: String?): Boolean {
         return false
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

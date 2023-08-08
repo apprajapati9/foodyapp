@@ -4,21 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import com.apprajapati.foody.R
 import com.apprajapati.foody.databinding.FragmentFoodJokeBinding
+import com.apprajapati.foody.ui.BaseFragment
 import com.apprajapati.foody.util.Constants.Companion.API_KEY
 import com.apprajapati.foody.util.NetworkResult
 import com.apprajapati.foody.util.showSnackBar
@@ -27,33 +25,20 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FoodJokeFragment : Fragment() {
-
-    private var _binding: FragmentFoodJokeBinding? = null
-
-    private val binding get() = _binding!!
+class FoodJokeFragment : BaseFragment<FragmentFoodJokeBinding>(FragmentFoodJokeBinding::inflate) {
 
     private val mainModel: MainViewModel by viewModels()
 
     private var foodJoke = "No Food Joke!"
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        _binding = FragmentFoodJokeBinding.inflate(inflater, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.mainViewModel = mainModel
         setUpMenu()
 
         binding.textviewFoodJoke.movementMethod = ScrollingMovementMethod()
         getFoodJoke()
-
-        return binding.root
     }
 
     private fun getFoodJoke() {
@@ -101,8 +86,7 @@ class FoodJokeFragment : Fragment() {
 
                 menu.findItem(R.id.share_foodJoke_menu).icon?.setTint(
                     ContextCompat.getColor(
-                        requireContext(),
-                        R.color.white
+                        requireContext(), R.color.white
                     )
                 )
             }
@@ -120,11 +104,5 @@ class FoodJokeFragment : Fragment() {
             }
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
